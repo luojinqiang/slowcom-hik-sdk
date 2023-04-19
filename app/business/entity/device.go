@@ -27,8 +27,8 @@ type Device struct {
 	DeviceVersion string `json:"deviceVersion"` //设备固件版本号
 }
 
-// DevicePage 分页
-type DevicePage struct {
+// DevicePageRes 分页
+type DevicePageRes struct {
 	g.PageEntity
 	Rows []*Device `json:"rows"`
 }

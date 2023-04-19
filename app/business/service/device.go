@@ -58,7 +58,7 @@ func (s *deviceRequest) Get(deviceSerial string) (device *entity.Device, err err
 }
 
 // Page 该接口用于查询某组下设备列表信息 分页
-func (s *deviceRequest) Page(groupNo string, pageNo, pageSize int) (page *entity.DevicePage, err error) {
+func (s *deviceRequest) Page(groupNo string, pageNo, pageSize int) (page *entity.DevicePageRes, err error) {
 	res, err := httpclient.Get(s.BuildUrl(fmt.Sprintf(`https://api2.hik-cloud.com/api/v1/open/basic/devices/list?groupNo=%s&pageNo=%d&pageSize=%d`, groupNo, pageNo, pageSize)))
 	if err != nil {
 		return nil, gerror.ErrIs系统异常
