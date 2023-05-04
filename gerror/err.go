@@ -24,6 +24,10 @@ var (
 		Code:    103,
 		Message: "数据解析异常",
 	}
+	ErrIs授权过期 = &Error{
+		Code:    401,
+		Message: "token过期",
+	}
 )
 
 // New 业务异常

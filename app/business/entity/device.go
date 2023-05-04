@@ -1,6 +1,8 @@
 package entity
 
-import "slowcom-hik-sdk/g"
+import (
+	"slowcom-hik-sdk/http"
+)
 
 // DeviceCreate 注册设备 注册设备到对应分组内。注册设备时首先会将设备添加到平台，
 type DeviceCreate struct {
@@ -29,6 +31,6 @@ type Device struct {
 
 // DevicePageRes 分页
 type DevicePageRes struct {
-	g.PageEntity
+	http.PageEntity
 	Rows []*Device `json:"rows"`
 }
