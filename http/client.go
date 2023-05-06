@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/ddliu/go-httpclient"
 	url2 "net/url"
-	"slowcom-hik-sdk/gerror"
 	"sync"
 )
 
@@ -32,14 +31,6 @@ type hikAccessTokenRes struct {
 	Scope       string `json:"scope"`
 }
 
-// NewHikHttpClient 创建海康httpClient
-func NewHikHttpClient(clientId, clientSecret string) *HikHttpClient {
-	return &HikHttpClient{
-		ClientId:     clientId,
-		ClientSecret: clientSecret,
-	}
-}
-
 // 生成一个http请求客户端
 func buildHttpClient() *httpclient.HttpClient {
 	return httpclient.NewHttpClient().Defaults(httpclient.Map{
@@ -58,6 +49,7 @@ func (s *HikHttpClient) getAccessToken() string {
 	}()
 	s.rwLock.Lock()
 	if s.accessToken != `` {
+		fmt.Println("缓存获取......")
 		return s.accessToken
 	}
 	response, err := buildHttpClient().WithHeader("Content-Type", "application/x-www-form-urlencoded").Post(s.BaseUrl+`/oauth/token`,
@@ -75,6 +67,7 @@ func (s *HikHttpClient) getAccessToken() string {
 	var tokenRes hikAccessTokenRes
 	err = json.Unmarshal(bytes, &tokenRes)
 	s.accessToken = tokenRes.AccessToken
+	fmt.Println("接口获取......")
 	return s.accessToken
 }
 
@@ -83,14 +76,13 @@ func (s *HikHttpClient) PostJson(url string, data interface{}) (response *HikRes
 	token := s.getAccessToken()
 	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+token).PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
 	if err != nil {
-		if err == gerror.ErrIs授权过期 {
-			s.accessToken = ``
-			token = s.getAccessToken()
-			res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
-			if err != nil {
-				return
-			}
-		} else {
+		return
+	}
+	if res.StatusCode == 401 { //token过期了
+		s.accessToken = ``
+		token = s.getAccessToken()
+		res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
+		if err != nil {
 			return
 		}
 	}
@@ -103,14 +95,13 @@ func (s *HikHttpClient) Post(url, data interface{}) (response *HikResponse, err 
 	token := s.getAccessToken()
 	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+token).Post(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
 	if err != nil {
-		if err == gerror.ErrIs授权过期 {
-			s.accessToken = ``
-			token = s.getAccessToken()
-			res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).Post(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
-			if err != nil {
-				return
-			}
-		} else {
+		return
+	}
+	if res.StatusCode == 401 { //token过期了
+		s.accessToken = ``
+		token = s.getAccessToken()
+		res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).Post(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
+		if err != nil {
 			return
 		}
 	}
@@ -123,14 +114,13 @@ func (s *HikHttpClient) Get(url string) (response *HikResponse, err error) {
 	token := s.getAccessToken()
 	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+token).Get(fmt.Sprintf("%s%s", s.BaseUrl, url), url2.Values{})
 	if err != nil {
-		if err == gerror.ErrIs授权过期 {
-			s.accessToken = ``
-			token = s.getAccessToken()
-			res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).Get(fmt.Sprintf("%s%s", s.BaseUrl, url), url2.Values{})
-			if err != nil {
-				return
-			}
-		} else {
+		return
+	}
+	if res.StatusCode == 401 { //token过期了
+		s.accessToken = ``
+		token = s.getAccessToken()
+		res, err = buildHttpClient().WithHeader("Authorization", "Bearer "+token).Get(fmt.Sprintf("%s%s", s.BaseUrl, url), url2.Values{})
+		if err != nil {
 			return
 		}
 	}

@@ -9,12 +9,12 @@ import (
 )
 
 type PersonRequest struct {
-	hikClient *http.HikHttpClient
+	HikClient *http.HikHttpClient
 }
 
 // Add 添加
 func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonAddRes, err error) {
-	res, err := s.hikClient.PostJson(`/api/v1/open/basic/persons/create`, add)
+	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/create`, add)
 	if err != nil {
 		return nil, gerror.ErrIs系统异常
 	}
@@ -25,7 +25,7 @@ func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonA
 
 // Update 更新
 func (s *PersonRequest) Update(update *entity.PersonUpdate) (personUpdateRes *entity.PersonUpdateRes, err error) {
-	res, err := s.hikClient.PostJson(`/api/v1/open/basic/persons/update`, update)
+	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/update`, update)
 	if err != nil {
 		return nil, gerror.ErrIs系统异常
 	}
@@ -36,13 +36,13 @@ func (s *PersonRequest) Update(update *entity.PersonUpdate) (personUpdateRes *en
 
 // Delete 删除人员
 func (s *PersonRequest) Delete(employeeNo string) (err error) {
-	_, err = s.hikClient.PostJson(fmt.Sprintf(`/api/v1/open/basic/persons/delete?employeeNo=%s`, employeeNo), nil)
+	_, err = s.HikClient.PostJson(fmt.Sprintf(`/api/v1/open/basic/persons/delete?employeeNo=%s`, employeeNo), nil)
 	return
 }
 
 // Get 获取人员单个信息
 func (s *PersonRequest) Get(employeeNo string) (person *entity.Person, err error) {
-	res, err := s.hikClient.Get(fmt.Sprintf(`/api/v1/open/basic/persons/get?employeeNo=%s`, employeeNo))
+	res, err := s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/persons/get?employeeNo=%s`, employeeNo))
 	if err != nil {
 		return nil, gerror.ErrIs系统异常
 	}
@@ -56,7 +56,7 @@ func (s *PersonRequest) Get(employeeNo string) (person *entity.Person, err error
 // faceImageBase64 人脸的base64字符串
 // verifyImage 是否校验人脸质量，默认校验人脸质量
 func (s *PersonRequest) FaceUpdate(employeeNo string, faceImageBase64 string, verifyImage bool) (err error) {
-	_, err = s.hikClient.PostJson(`/api/v1/open/basic/faces/update`, map[string]interface{}{
+	_, err = s.HikClient.PostJson(`/api/v1/open/basic/faces/update`, map[string]interface{}{
 		`employeeNo`:      employeeNo,
 		`faceImageBase64`: faceImageBase64,
 		`verifyImage`:     verifyImage,
@@ -66,7 +66,7 @@ func (s *PersonRequest) FaceUpdate(employeeNo string, faceImageBase64 string, ve
 
 // FaceDelete 删除人脸
 func (s *PersonRequest) FaceDelete(employeeNo string) (err error) {
-	_, err = s.hikClient.Post(fmt.Sprintf(`/api/v1/open/basic/faces/delete?employeeNo=%s`, employeeNo), nil)
+	_, err = s.HikClient.Post(fmt.Sprintf(`/api/v1/open/basic/faces/delete?employeeNo=%s`, employeeNo), nil)
 	if err != nil {
 		return gerror.ErrIs系统异常
 	}
