@@ -26,7 +26,7 @@ func (s *DeviceRequest) Delete(deviceSerial string) (err error) {
 
 // Update 该接口用于修改设备名称
 func (s *DeviceRequest) Update(deviceUpdate *entity.DeviceUpdate) (err error) {
-	_, err = s.HikClient.PostJson(`/api/v1/open/basic/groups/update`, deviceUpdate)
+	_, err = s.HikClient.PostJson(`/api/v1/open/basic/devices/update`, deviceUpdate)
 	return
 }
 
