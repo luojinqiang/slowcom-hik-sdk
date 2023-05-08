@@ -3,8 +3,8 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"slowcom-hik-sdk/app/access_control/entity"
-	"slowcom-hik-sdk/http"
+	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
+	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
 type PermissionGroupRequest struct {

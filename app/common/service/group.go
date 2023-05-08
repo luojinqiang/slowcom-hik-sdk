@@ -3,9 +3,9 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"slowcom-hik-sdk/app/common/entity"
-	"slowcom-hik-sdk/gerror"
-	"slowcom-hik-sdk/http"
+	"github.com/luojinqiang/slowcom-hik-sdk/app/common/entity"
+	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
+	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
 /**

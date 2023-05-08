@@ -1,9 +1,9 @@
 package service
 
 import (
-	"slowcom-hik-sdk/app/access_control/entity"
-	"slowcom-hik-sdk/gerror"
-	"slowcom-hik-sdk/http"
+	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
+	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
+	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
 type CardRequest struct {

@@ -1,4 +1,4 @@
-module slowcom-hik-sdk
+module github.com/luojinqiang/slowcom-hik-sdk
 
 go 1.18
 

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"slowcom-hik-sdk/app/access_control/service"
-	"slowcom-hik-sdk/config"
-	"slowcom-hik-sdk/http"
+	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/service"
+	"github.com/luojinqiang/slowcom-hik-sdk/config"
+	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package http
 import (
 	"encoding/json"
 	"github.com/ddliu/go-httpclient"
-	"slowcom-hik-sdk/gerror"
+	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 )
 
 // HikResponse 返回

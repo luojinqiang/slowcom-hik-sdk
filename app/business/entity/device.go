@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"slowcom-hik-sdk/http"
+	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
 // DeviceCreate 注册设备 注册设备到对应分组内。注册设备时首先会将设备添加到平台，
