@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/luojinqiang/slowcom-hik-sdk/app/business/entity"
-	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
@@ -16,7 +15,7 @@ type PersonRequest struct {
 func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonAddRes, err error) {
 	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/create`, add)
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &personAddRes)
@@ -27,7 +26,7 @@ func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonA
 func (s *PersonRequest) Update(update *entity.PersonUpdate) (personUpdateRes *entity.PersonUpdateRes, err error) {
 	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/update`, update)
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &personUpdateRes)
@@ -44,7 +43,7 @@ func (s *PersonRequest) Delete(employeeNo string) (err error) {
 func (s *PersonRequest) Get(employeeNo string) (person *entity.Person, err error) {
 	res, err := s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/persons/get?employeeNo=%s`, employeeNo))
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &person)
@@ -67,8 +66,5 @@ func (s *PersonRequest) FaceUpdate(employeeNo string, faceImageBase64 string, ve
 // FaceDelete 删除人脸
 func (s *PersonRequest) FaceDelete(employeeNo string) (err error) {
 	_, err = s.HikClient.Post(fmt.Sprintf(`/api/v1/open/basic/faces/delete?employeeNo=%s`, employeeNo), nil)
-	if err != nil {
-		return gerror.ErrIs系统异常
-	}
 	return
 }

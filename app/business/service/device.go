@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/luojinqiang/slowcom-hik-sdk/app/business/entity"
-	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
@@ -34,7 +33,7 @@ func (s *DeviceRequest) Update(deviceUpdate *entity.DeviceUpdate) (err error) {
 func (s *DeviceRequest) Get(deviceSerial string) (device *entity.Device, err error) {
 	res, err := s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/devices/get?deviceSerial=%s`, deviceSerial))
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &device)
@@ -45,7 +44,7 @@ func (s *DeviceRequest) Get(deviceSerial string) (device *entity.Device, err err
 func (s *DeviceRequest) Page(groupNo string, pageNo, pageSize int) (page *entity.DevicePageRes, err error) {
 	res, err := s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/devices/list?groupNo=%s&pageNo=%d&pageSize=%d`, groupNo, pageNo, pageSize))
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &page)

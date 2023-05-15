@@ -115,6 +115,9 @@ func (s *PermissionGroupRequest) GetDeviceSerialsPage(pageNo int, pageSize int, 
 		`pageSize`: pageSize,
 		`groupId`:  groupId,
 	})
+	if err != nil {
+		return
+	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &PermissionGroupDevicePageRes)
 	return

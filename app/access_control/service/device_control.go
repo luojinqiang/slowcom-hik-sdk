@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
-	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
@@ -30,7 +29,7 @@ func (s *DeviceControlRequest) GetQrcode(cardNo string, effectTime string, expir
 	res, err := s.HikClient.Post(`/api/v1/community/access/visitors/actions/getQrcode`,
 		fmt.Sprintf(`cardNo=%s&effectTime=%s&expireTime=%s&openTimes=%d`, cardNo, effectTime, expireTime, openTimes))
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return nil, err
 	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &deviceControlGetQrcodeRes)

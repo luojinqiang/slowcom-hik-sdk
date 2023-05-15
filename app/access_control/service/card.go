@@ -2,7 +2,6 @@ package service
 
 import (
 	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
-	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
@@ -23,9 +22,6 @@ func (s *CardRequest) BatchDelete(list []string) (err error) {
 	_, err = s.HikClient.PostJson(`/api/v1/open/basic/cards/batchDelete`, map[string]interface{}{
 		`cardNos`: list,
 	})
-	if err != nil {
-		return gerror.ErrIs系统异常
-	}
 	return
 }
 

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/luojinqiang/slowcom-hik-sdk/app/common/entity"
-	"github.com/luojinqiang/slowcom-hik-sdk/gerror"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
 
@@ -24,9 +23,6 @@ func (s *GroupRequest) Add(groupAdd *entity.GroupAdd) (err error) {
 // Delete 该接口用于通过组编号来删除组。组下面挂有下级节点或者设备的不可以删除，需清空后进行删除。
 func (s *GroupRequest) Delete(groupNo string) (err error) {
 	_, err = s.HikClient.Post(fmt.Sprintf(`/api/v1/open/basic/groups/delete?groupNo=%s`, groupNo), nil)
-	if err != nil {
-		return gerror.ErrIs系统异常
-	}
 	return
 }
 
@@ -40,7 +36,7 @@ func (s *GroupRequest) Update(groupUpdate *entity.GroupUpdate) (err error) {
 func (s *GroupRequest) Get(groupNo string) (group *entity.Group, err error) {
 	hikResponse, err := s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/groups/delete?groupNo=%s`, groupNo))
 	if err != nil {
-		return nil, gerror.ErrIs系统异常
+		return nil, err
 	}
 	bytes, _ := json.Marshal(hikResponse.Data)
 	err = json.Unmarshal(bytes, &group)
@@ -54,12 +50,12 @@ func (s *GroupRequest) List(groupNo string) (list []*entity.Group, err error) {
 	if groupNo == `` {
 		res, err = s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/groups/actions/listAll`))
 		if err != nil {
-			return nil, gerror.ErrIs系统异常
+			return nil, err
 		}
 	} else {
 		res, err = s.HikClient.Get(fmt.Sprintf(`/api/v1/open/basic/groups/actions/childrenList?parentNo=%s`, groupNo))
 		if err != nil {
-			return nil, gerror.ErrIs系统异常
+			return nil, err
 		}
 	}
 	bytes, _ := json.Marshal(res.Data)
