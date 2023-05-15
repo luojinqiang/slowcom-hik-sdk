@@ -19,8 +19,6 @@ func (s *EventRequest) CreateConsumer(groupNo string) (consumerId string, err er
 		return
 	}
 	var data map[string]string
-	{
-	}
 	bytes, _ := json.Marshal(res.Data)
 	err = json.Unmarshal(bytes, &data)
 	consumerId = data["consumerId"]
