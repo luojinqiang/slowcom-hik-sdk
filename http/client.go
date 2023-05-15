@@ -49,7 +49,6 @@ func (s *HikHttpClient) getAccessToken() string {
 	}()
 	s.rwLock.Lock()
 	if s.accessToken != `` {
-		fmt.Println("缓存获取......")
 		return s.accessToken
 	}
 	response, err := buildHttpClient().WithHeader("Content-Type", "application/x-www-form-urlencoded").Post(s.BaseUrl+`/oauth/token`,
@@ -67,7 +66,6 @@ func (s *HikHttpClient) getAccessToken() string {
 	var tokenRes hikAccessTokenRes
 	err = json.Unmarshal(bytes, &tokenRes)
 	s.accessToken = tokenRes.AccessToken
-	fmt.Println("接口获取......")
 	return s.accessToken
 }
 
