@@ -32,7 +32,7 @@ func (s *EventRequest) CreateConsumer(groupNo string) (consumerId string, err er
 // consumerId 消费者ID
 func (s *EventRequest) MessageConsumer(autoCommit bool, consumerId string) (list []*entity.EventMsg, err error) {
 	res, err := s.HikClient.Post(`/api/v1/mq/consumer/messages`,
-		fmt.Sprintf(`autoCommit=%v&consumerId=%s`, autoCommit, consumerId))
+		fmt.Sprintf(`autoCommit=%t&consumerId=%s`, autoCommit, consumerId))
 	if err != nil {
 		return nil, err
 	}

@@ -91,7 +91,7 @@ func (s *HikHttpClient) PostJson(url string, data interface{}) (response *HikRes
 // Post post普通请求
 func (s *HikHttpClient) Post(url, data interface{}) (response *HikResponse, err error) {
 	token := s.getAccessToken()
-	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+token).Post(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
+	res, err := buildHttpClient().WithHeader("Content-Type", "application/x-www-form-urlencoded").WithHeader("Authorization", "Bearer "+token).Post(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
 	if err != nil {
 		return
 	}
