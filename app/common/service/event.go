@@ -32,7 +32,7 @@ func (s *EventRequest) MessageConsumer(autoCommit bool, consumerId string) (list
 	return
 }
 
-// SubmitOffsets 提交便宜量
+// SubmitOffsets 提交消息偏移量
 // consumerId 消费者ID
 func (s *EventRequest) SubmitOffsets(consumerId string) (err error) {
 	_, err = s.HikClient.Post(`/api/v1/mq/consumer/offsets`,
