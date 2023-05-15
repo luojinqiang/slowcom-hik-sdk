@@ -14,7 +14,16 @@ type EventRequest struct {
 // CreateConsumer 创建消费者 https://pic.hik-cloud.com/opencustom/apidoc/online/open/9e27913442f548a984e86b7d7978c53f.html?timestamp=1683343883586#%E5%88%9B%E5%BB%BA%E6%B6%88%E8%B4%B9%E8%80%85SPU1hk
 // groupNo 消息分组编号，1，2，3共3个分组
 func (s *EventRequest) CreateConsumer(groupNo string) (consumerId string, err error) {
-	_, err = s.HikClient.Post(fmt.Sprintf(`/api/v1/mq/consumer/group%s`, groupNo), map[string]interface{}{})
+	res, err := s.HikClient.Post(fmt.Sprintf(`/api/v1/mq/consumer/group%s`, groupNo), nil)
+	if err != nil {
+		return
+	}
+	var data map[string]string
+	{
+	}
+	bytes, _ := json.Marshal(res.Data)
+	err = json.Unmarshal(bytes, &data)
+	consumerId = data["consumerId"]
 	return
 }
 

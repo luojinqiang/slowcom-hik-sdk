@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/luojinqiang/slowcom-hik-sdk/app/access_control/service"
+	service2 "github.com/luojinqiang/slowcom-hik-sdk/app/common/service"
 	"github.com/luojinqiang/slowcom-hik-sdk/config"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
@@ -10,13 +10,19 @@ import (
 func main() {
 	hikClient := &http.HikHttpClient{
 		BaseUrl:      config.BaseUrl,
-		ClientId:     "123456465",
-		ClientSecret: "134313213433",
+		ClientId:     "123456",
+		ClientSecret: "321654",
 	}
-	deviceControlRequest := service.DeviceControlRequest{HikClient: hikClient}
+	//deviceControlRequest := service.DeviceControlRequest{HikClient: hikClient}
+	//
+	//err := deviceControlRequest.DoorControl("G70731081", "1002", "open")
+	//
+	//fmt.Println(`err1`, err)
 
-	err := deviceControlRequest.DoorControl("G70731081", "1002", "open")
+	eventRequest := service2.EventRequest{HikClient: hikClient}
 
-	fmt.Println(`err1`, err)
+	consumerId, err := eventRequest.CreateConsumer(`1`)
+	fmt.Println(`consumerId`, consumerId)
+	fmt.Println(`err`, err)
 
 }
