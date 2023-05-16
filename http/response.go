@@ -26,7 +26,7 @@ func checkResponse(res *httpclient.Response) (hikResponse *HikResponse, err erro
 		return nil, gerror.ErrIs授权过期
 	}
 	if res.StatusCode != 200 {
-		return nil, gerror.ErrIs请求状态异常
+		return nil, gerror.New(res.StatusCode, "请求状态异常")
 	}
 	bytes, err := res.ReadAll()
 	if err != nil {
@@ -39,6 +39,6 @@ func checkResponse(res *httpclient.Response) (hikResponse *HikResponse, err erro
 	if hikResponse.Code == 200 || hikResponse.Code == 0 {
 		return
 	} else {
-		return nil, gerror.New(hikResponse.Message)
+		return hikResponse, gerror.New(hikResponse.Code, hikResponse.Message)
 	}
 }

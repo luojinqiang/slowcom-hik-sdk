@@ -31,9 +31,9 @@ var (
 )
 
 // New 业务异常
-func New(message string) error {
+func New(code int, message string) error {
 	return &Error{
-		Code:    100,
+		Code:    code,
 		Message: message,
 	}
 }
