@@ -28,14 +28,16 @@ func (s *EventRequest) CreateConsumer(groupNo string) (consumerId string, err er
 // MessageConsumer 消费消息
 // autoCommit 是否自动提交偏移量
 // consumerId 消费者ID
-func (s *EventRequest) MessageConsumer(autoCommit bool, consumerId string) (list []*entity.EventMsg, err error) {
+func (s *EventRequest) MessageConsumer(autoCommit bool, consumerId string) (eventMsgResponse *entity.EventMsgResponse, err error) {
 	res, err := s.HikClient.Post(`/api/v1/mq/consumer/messages`,
 		fmt.Sprintf(`autoCommit=%t&consumerId=%s`, autoCommit, consumerId))
+	eventMsgResponse = new(entity.EventMsgResponse)
+	eventMsgResponse.HikResponse = res
 	if err != nil {
-		return nil, err
+		return
 	}
 	bytes, _ := json.Marshal(res.Data)
-	err = json.Unmarshal(bytes, &list)
+	err = json.Unmarshal(bytes, &eventMsgResponse.List)
 	return
 }
 
