@@ -1,7 +1,5 @@
 package entity
 
-import "time"
-
 // PersonAdd 添加人员
 type PersonAdd struct {
 	EmployeeNo      string `json:"employeeNo"`      //人员编号，同一个租户下不能重复，只支持英文、数字
@@ -13,21 +11,21 @@ type PersonAdd struct {
 
 // PersonAddRes 添加人员返回
 type PersonAddRes struct {
-	EmployeeNo      string    `json:"employeeNo"`
-	PersonName      string    `json:"personName"`
-	PersonPhone     string    `json:"personPhone"`
-	FaceUrl         string    `json:"faceUrl"`
-	PersonType      string    `json:"personType"`
-	FloorNo         int       `json:"floorNo"`
-	RoomNo          int       `json:"roomNo"`
-	ValidBeginTime  time.Time `json:"validBeginTime"`
-	ValidEndTime    time.Time `json:"validEndTime"`
-	PlanTemplateNos []int     `json:"planTemplateNos"`
-	DynamicCode     string    `json:"dynamicCode"`
-	MaxOpenDoorTime int       `json:"maxOpenDoorTime"`
-	CallNumbers     []string  `json:"callNumbers"`
-	FloorNumbers    []int     `json:"floorNumbers"`
-	LocalUIRight    int       `json:"localUIRight"`
+	EmployeeNo      string   `json:"employeeNo"`
+	PersonName      string   `json:"personName"`
+	PersonPhone     string   `json:"personPhone"`
+	FaceUrl         string   `json:"faceUrl"`
+	PersonType      string   `json:"personType"`
+	FloorNo         int      `json:"floorNo"`
+	RoomNo          int      `json:"roomNo"`
+	ValidBeginTime  string   `json:"validBeginTime"`
+	ValidEndTime    string   `json:"validEndTime"`
+	PlanTemplateNos []int    `json:"planTemplateNos"`
+	DynamicCode     string   `json:"dynamicCode"`
+	MaxOpenDoorTime int      `json:"maxOpenDoorTime"`
+	CallNumbers     []string `json:"callNumbers"`
+	FloorNumbers    []int    `json:"floorNumbers"`
+	LocalUIRight    int      `json:"localUIRight"`
 }
 
 // PersonUpdate 更新人员
