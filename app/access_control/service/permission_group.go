@@ -52,11 +52,28 @@ func (s *PermissionGroupRequest) Page(pageNo, pageSize int) (list []*entity.Perm
 // groupId 权限组ID
 // employeeNos 关联的人员编号列表
 // autoIssue 是否自动下发,true或者不填默认调用本接口后自动下发权限组,false为手动下发(需要调用根据权限组下发接口下发)
-func (s *PermissionGroupRequest) BindPerson(groupId string, employeeNos []string, autoIssue bool) (err error) {
+func (s *PermissionGroupRequest) BindPerson(params *entity.BindPersonParams) (err error) {
+	permission := map[string]interface{}{
+		`employeeNo`:      params.EmployeeNo,
+		`personType`:      params.PersonType,
+		`maxOpenDoorTime`: params.MaxOpenDoorTime,
+	}
+	if params.Mobile != `` {
+		permission[`personPhone`] = params.Mobile
+	}
+	if params.ValidBeginTime != `` {
+		permission[`validBeginTime`] = params.ValidBeginTime
+	}
+	if params.ValidEndTime != `` {
+		permission[`validEndTime`] = params.ValidEndTime
+	}
 	_, err = s.HikClient.PostJson(`/api/v1/open/accessControl/permissionGroups/actions/addPersons`, map[string]interface{}{
-		`groupId`:     groupId,
-		`employeeNos`: employeeNos,
-		`autoIssue`:   autoIssue,
+		`groupId`:     params.GroupId,
+		`employeeNos`: []string{params.EmployeeNo},
+		`autoIssue`:   params.AutoIssue,
+		`permissions`: []map[string]interface{}{
+			permission,
+		},
 	})
 	return
 }
