@@ -49,9 +49,9 @@ type PermissionGroupDevicePageRes struct {
 type PersonType string
 
 const (
-	PersonTypIsNormal    = "normal"
-	PersonTypIsVisitor   = "visitor"
-	PersonTypIsBlackList = "blackList"
+	PersonTypIsNormal    PersonType = "normal"
+	PersonTypIsVisitor   PersonType = "visitor"
+	PersonTypIsBlackList PersonType = "blackList"
 )
 
 // BindPersonParams 权限组绑定人员参数

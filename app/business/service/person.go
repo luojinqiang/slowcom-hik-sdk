@@ -24,7 +24,17 @@ func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonA
 
 // Update 更新
 func (s *PersonRequest) Update(update *entity.PersonUpdate) (personUpdateRes *entity.PersonUpdateRes, err error) {
-	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/update`, update)
+	mp := make(map[string]interface{})
+	mp["personName"] = update.PersonName
+	mp["employeeNo"] = update.EmployeeNo
+	if update.PersonPhone != `` {
+		mp["personPhone"] = update.PersonPhone
+	}
+	if update.FaceImageBase64 != `` {
+		mp["faceImageBase64"] = update.FaceImageBase64
+	}
+	mp["verifyImage"] = update.VerifyImage
+	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/update`, mp)
 	if err != nil {
 		return
 	}
