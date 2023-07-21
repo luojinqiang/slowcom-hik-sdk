@@ -1,12 +1,15 @@
 package entity
 
+import "github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
+
 // PersonAdd 添加人员
 type PersonAdd struct {
-	EmployeeNo      string `json:"employeeNo"`      //人员编号，同一个租户下不能重复，只支持英文、数字
-	PersonName      string `json:"personName"`      //人员姓名
-	PersonPhone     string `json:"personPhone"`     //人员手机号
-	FaceImageBase64 string `json:"faceImageBase64"` //base64编码的人脸图片，图片大小需小于200kB，数据需去除base64前缀
-	VerifyImage     bool   `json:"verifyImage"`     //是否进行人脸质量校验，默认：true；如果调用方能保证人脸的质量符合标准那么可以配置为false,注意：如果调用方不能保证人脸质量，而且不对人脸质量校验，那么图片质量差的人脸可能会下发到设备，可能导致人脸下发失败
+	EmployeeNo      string            `json:"employeeNo"`      //人员编号，同一个租户下不能重复，只支持英文、数字
+	PersonName      string            `json:"personName"`      //人员姓名
+	PersonPhone     string            `json:"personPhone"`     //人员手机号
+	PersonType      entity.PersonType `json:"personType"`      //人员类型， normal：普通人，visitor:访客，blackList:黑名单，默认：normal；当人员类型为normal时，长期有效，validBeginTime和validEndTime字段将失效
+	FaceImageBase64 string            `json:"faceImageBase64"` //base64编码的人脸图片，图片大小需小于200kB，数据需去除base64前缀
+	VerifyImage     bool              `json:"verifyImage"`     //是否进行人脸质量校验，默认：true；如果调用方能保证人脸的质量符合标准那么可以配置为false,注意：如果调用方不能保证人脸质量，而且不对人脸质量校验，那么图片质量差的人脸可能会下发到设备，可能导致人脸下发失败
 }
 
 // PersonAddRes 添加人员返回

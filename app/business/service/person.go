@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	entity2 "github.com/luojinqiang/slowcom-hik-sdk/app/access_control/entity"
 	"github.com/luojinqiang/slowcom-hik-sdk/app/business/entity"
 	"github.com/luojinqiang/slowcom-hik-sdk/http"
 )
@@ -13,6 +14,9 @@ type PersonRequest struct {
 
 // Add 添加
 func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonAddRes, err error) {
+	if add.PersonType == `` {
+		add.PersonType = entity2.PersonTypIsNormal
+	}
 	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/create`, add)
 	if err != nil {
 		return
