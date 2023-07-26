@@ -17,7 +17,17 @@ func (s *PersonRequest) Add(add *entity.PersonAdd) (personAddRes *entity.PersonA
 	if add.PersonType == `` {
 		add.PersonType = entity2.PersonTypIsNormal
 	}
-	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/create`, add)
+	mp := make(map[string]interface{})
+	mp["personName"] = add.PersonName
+	mp["employeeNo"] = add.EmployeeNo
+	if add.PersonPhone != `` {
+		mp["personPhone"] = add.PersonPhone
+	}
+	if add.FaceImageBase64 != `` {
+		mp["faceImageBase64"] = add.FaceImageBase64
+	}
+	mp["verifyImage"] = add.VerifyImage
+	res, err := s.HikClient.PostJson(`/api/v1/open/basic/persons/create`, mp)
 	if err != nil {
 		return
 	}
